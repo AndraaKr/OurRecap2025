@@ -1,0 +1,598 @@
+:root {
+    --bg-color: #0c0c0c;
+    --accent: #cfa611;
+    --glass: rgba(255, 255, 255, 0.1);
+    --font-maringue: 'Playfair Display', serif;
+    --font-moonlight: 'Tan Moonlight', 'Dancing Script', cursive;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { 
+    background: var(--bg-color); 
+    color: white; 
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow: hidden;
+}
+
+/* --- UI Components --- */
+#overlay {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    
+    /* Ganti background ke gambar */
+    background-image: url('assets/bg-hero.png'); 
+    background-size: cover;
+    background-position: center;
+    
+    z-index: 9999; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    text-align: center;
+    padding: 20px;
+    
+     transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1); /* Efek keluar yang lebih mantap */
+    transform-origin: top center; /* Animasi menyusut ke arah ATAS */
+}
+
+#overlay.hide-overlay {
+    opacity: 0;
+    /* Menyusut (scale), melayang ke atas (translateY), dan sedikit miring (rotate) */
+    transform: translateY(-100%) scaleY(0.2) scaleX(0.8) rotateX(10deg);
+    filter: blur(10px);
+    pointer-events: none;
+}
+
+/* Warna teks khusus di overlay karena BG putih */
+#overlay h2 {
+    color: #1a1a1a !important; /* Hitam pekat */
+}
+
+#overlay p {
+    color: #333333 !important; /* Abu-abu gelap */
+}
+
+/* Tombol khusus di overlay agar kontras dengan BG putih */
+#overlay .btn {
+    background: #1a1a1a; 
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+#music-control {
+    position: fixed; top: 20px; right: 20px; z-index: 1000;
+    background: var(--glass); padding: 12px; border-radius: 50%;
+    backdrop-filter: blur(10px); cursor: pointer; display: none;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn {
+    background: white; color: black; border: none;
+    padding: 15px 35px; border-radius: 50px;
+    font-weight: 800; text-transform: uppercase; cursor: pointer;
+    margin-top: 9px; transition: 0.3s;
+}
+.btn:hover { transform: scale(1.05); }
+
+/* --- Swiper & Slides --- */
+.swiper { width: 100%; height: 100vh; }
+.swiper-slide {
+    padding: 40px 25px; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    position: relative;
+}
+
+.hero-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0; /* Reset margin */
+}
+
+/* Background Per Slide */
+.s1 { background: radial-gradient(circle at center, #1db954, #0c0c0c); }
+
+/* Slide 1: gunakan gambar flower sebagai background */
+#slide1 {
+    background-image: url('assets/flower.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Dark overlay untuk meningkatkan kontras teks pada slide 1 */
+#slide1 {
+    position: relative;
+}
+#slide1::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.35));
+    z-index: 1;
+    pointer-events: none;
+}
+#slide1 > * {
+    position: relative;
+    z-index: 2;
+}
+.s-new { background: radial-gradient(circle at center, #450a5a, #0c0c0c); }
+.s2 { background: radial-gradient(circle at bottom left, #2d46b9, #0c0c0c); }
+.s3 { background: radial-gradient(circle at center, #f57310, #0c0c0c); }
+.s4 { background: radial-gradient(circle at top left, #7350ff, #0c0c0c); }
+.s5 { background: radial-gradient(circle at bottom right, #e91429, #0c0c0c); }
+
+/* --- Typography --- */
+.hero-title {
+    font-family: var(--font-maringue);
+    font-size: 5rem; line-height: 0.9; text-transform: uppercase;
+}
+.reveal-text {
+    display: block; opacity: 0; filter: blur(10px);
+    transform: translateY(30px); transition: all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1);
+}
+.hero-subtitle {
+    font-family: var(--font-moonlight);
+    font-size: 3.5rem; margin-top: 10px; opacity: 0; filter: blur(5px);
+    transition: all 1.2s ease 1s;
+}
+.swipe-up {
+    position: absolute; bottom: 50px; font-size: 0.8rem; 
+    opacity: 0.8; letter-spacing: 2px;
+}
+
+.start-anim .reveal-text { opacity: 1; filter: blur(0); transform: translateY(0); }
+.start-anim .hero-subtitle { opacity: 1; filter: blur(0); }
+
+/* --- Cards & Stats --- */
+.card {
+    background: var(--glass); backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 25px;
+    padding: 25px; width: 100%; max-width: 400px;
+    transform: translateY(30px); opacity: 0; transition: 1s all ease;
+    position: relative;
+}
+.swiper-slide-active .card { transform: translateY(0); opacity: 1; }
+
+.card-title {
+    margin-bottom: 10px;
+}
+
+/* Larger, more title-like font for stats slide titles */
+.swiper-slide.s-stat .card-title {
+    font-family: 'Plus Jakarta Sans', var(--font-maringue);
+    font-size: rem;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    margin-bottom: 12px;
+}
+
+@media (max-width: 480px) {
+    .swiper-slide.s-stat .card-title { font-size: 3.4rem; }
+}
+
+/* Stats slide */
+.stats-card { max-width: 720px; width: 100%; padding: 20px 30px; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 18px; margin-top: 10px; }
+.stat-card { background: rgba(255,255,255,0.03); padding: 18px; border-radius: 14px; display:flex; align-items:center; gap:12px; }
+.stat-card.single { display:flex; flex-direction: column; align-items: center; text-align: center; padding: 28px; }
+.stat-icon { font-size: 28px; }
+.stat-icon img { display: block; }
+.stat-body { text-align: left; }
+
+/* Arrange label beside number for stat blocks */
+.stat-body {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    justify-content: center;
+}
+
+.stat-card.single .stat-body { flex-direction: row; }
+.stat-card.single .stat-label {
+    font-size: 1rem;
+    opacity: 0.92;
+    line-height: 1;
+    margin-bottom: 2px;
+}
+.stat-number { line-height: 1; }
+.stat-card.single .stat-number { font-size: 2.6rem; }
+.stat-number { font-size: 2.2rem; font-weight: 800; color: var(--accent); }
+.stat-label { font-size: 0.95rem; opacity: 0.9; }
+
+/* single-stat display mode */
+.stats-grid.single-mode { display: block; height: 280px; position: relative; }
+.stats-grid.single-mode .stat-card { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 80%; display: none; justify-content: flex-start; }
+.stats-grid.single-mode .stat-card.active { display: flex; }
+.stat-gif { width: 180px; height: 180px; display: block; margin-bottom: 14px; }
+.stat-card.single .stat-number { font-size: 3rem; }
+.stats-instruction { margin-top: 12px; opacity: 0.85; font-size: 0.95rem; text-align:center; }
+
+.stat-box { display: flex; align-items: center; margin-bottom: 20px; text-align: left; }
+.stat-icon { font-size: 2rem; margin-right: 15px; }
+.stat-text b { display: block; font-size: 1.1rem; color: var(--accent); }
+
+.media-frame {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #111;
+    border-radius: 15px; overflow: hidden; margin: 15px 0;
+    border: 3px solid rgba(255,255,255,0.12);
+}
+
+.media-frame video,
+.media-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+}
+
+/* --- Modal --- */
+.modal {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9); z-index: 2000; padding: 20px;
+}
+.modal-paper {
+    background: #fdfdfd; color: #333; padding: 30px; border-radius: 15px;
+    height: 100%; overflow-y: auto; position: relative;
+    background-image: linear-gradient(#e5e5e5 1px, transparent 1px);
+    background-size: 100% 2rem; line-height: 2rem;
+}
+.close-modal { position: absolute; top: 10px; right: 20px; font-size: 2.5rem; color: #999; cursor: pointer; }
+
+/* ... (kode root dan body sama seperti sebelumnya) ... */
+
+/* Warna Background Tambahan */
+.s-roblox { background: radial-gradient(circle, #213555, #0c0c0c); }
+.s-ice { background: radial-gradient(circle, #4F709C, #0c0c0c); }
+.s-k3mart { background: radial-gradient(circle, #D04848, #0c0c0c); }
+.s-cafe { background: radial-gradient(circle, #603601, #0c0c0c); }
+.s-study { background: radial-gradient(circle, #3D3B40, #0c0c0c); }
+
+.slide-content {
+    width: 100%;
+    max-width: 500px;
+    z-index: 5;
+}
+
+.category-title {
+    font-family: var(--font-maringue);
+    font-size: 2.5rem;
+}
+
+/* Nested Swiper Styling */
+.nestedSwiper {
+    width: 100%;
+    height: 520px;
+    border-radius: 24px;
+    margin-bottom: 20px;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    padding: 8px 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02));
+}
+
+/* --- Tambahan Tombol Play Tengah --- */
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65px;
+    height: 65px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.play-overlay:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.play-overlay span {
+    color: white;
+    font-size: 24px;
+    margin-left: 4px; /* Penyeimbang visual icon segitiga */
+}
+
+/* Sembunyikan tombol saat video diputar */
+.video-playing .play-overlay {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.8);
+}
+
+
+.media-box {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 16px;
+    position: relative;
+}
+
+.media-box img, .media-box video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 20px;
+}
+
+/* iPhone-like card visual for nested slides */
+.nestedSwiper .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+}
+.nestedSwiper .media-box {
+    width: 96%;
+    height: 92%;
+    border-radius: 20px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45), 0 6px 14px rgba(0,0,0,0.35);
+    transition: transform 420ms cubic-bezier(.22,.9,.22,1), box-shadow 420ms;
+    overflow: hidden;
+    background: transparent;
+}
+.nestedSwiper .swiper-slide-active .media-box {
+    transform: scale(1.02) translateY(-4px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 10px 20px rgba(0,0,0,0.4);
+}
+.nestedSwiper .swiper-slide-next .media-box,
+.nestedSwiper .swiper-slide-prev .media-box {
+    transform: scale(.98);
+}
+
+/* Flower background helper for stats slides */
+.bg-flower {
+    background-image: url('assets/bg-flower2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.bg-flower > * { position: relative; z-index: 2; }
+
+/* Entrance animation for single stat cards */
+.swiper-slide.s-stat .stat-card { transform: translateY(20px); opacity: 0; transition: transform 420ms cubic-bezier(.22,.9,.22,1), opacity 420ms; }
+.swiper-slide.s-stat.swiper-slide-active .stat-card { transform: translateY(0); opacity: 1; }
+
+/* Cream background variant for stats intro */
+.bg-krem {
+    background-color: #f6ecdb;
+    background-image: url('assets/bg-krem.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+.bg-krem::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(rgba(0,0,0,0.06), rgba(0,0,0,0.03));
+    z-index: 1;
+    pointer-events: none;
+}
+.bg-krem > * { position: relative; z-index: 2; }
+.bg-krem .card { background: rgba(255,255,255,0.85); color: #222; border-radius: 20px; }
+.bg-krem .card-title { color: #222; font-size: 1.4rem; }
+
+.slide-note {
+    margin-top: 12px;
+    color: rgba(0, 0, 0, 0.92);
+    font-size: 1rem;
+    text-align: center;
+    opacity: 0.95;
+}
+
+/* Prank overlay for happy stat */
+.prank-overlay {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.8); color: white; z-index: 30; border-radius: 18px;
+    padding: 20px; text-align: center;
+}
+.prank-text { font-size: 1.05rem; font-weight: 700; }
+
+/* bubble end animation for stat number */
+.bubble { display: inline-block; animation: bubble 680ms cubic-bezier(.2,.9,.2,1); }
+@keyframes bubble {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    40% { transform: scale(1.12); opacity: 1; }
+    70% { transform: scale(0.98); }
+    100% { transform: scale(1); }
+}
+
+/* Kain background variant for later slides */
+.bg-kain {
+    background-image: url('assets/bg-kain.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+.bg-kain::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(rgba(0,0,0,0.48), rgba(0,0,0,0.48));
+    z-index: 1;
+    pointer-events: none;
+}
+.bg-kain > * { position: relative; z-index: 2; }
+
+/* Remove blur effect for card and nested container on specific slides (3-6) */
+.swiper-slide.s-roblox .card,
+.swiper-slide.s-ice .card,
+.swiper-slide.s-k3mart .card,
+.swiper-slide.s-cafe .card {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    /* keep translucent feel but without blur */
+    background: rgba(255,255,255,0.04) !important;
+    border-radius: 20px;
+}
+.swiper-slide.s-roblox .nestedSwiper,
+.swiper-slide.s-ice .nestedSwiper,
+.swiper-slide.s-k3mart .nestedSwiper,
+.swiper-slide.s-cafe .nestedSwiper {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background: transparent !important;
+}
+
+/* pagination bullets: active bullet elongates (pill) */
+.nestedSwiper .swiper-pagination {
+    bottom: 10px !important;
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    padding: 0 6px;
+}
+.nestedSwiper .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    opacity: 0.9;
+    background: rgba(255,255,255,0.85) !important;
+    display: inline-block;
+    border-radius: 999px;
+    transition: width 260ms cubic-bezier(.22,.9,.22,1), background 220ms, transform 220ms;
+}
+.nestedSwiper .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    width: 30px;
+    height: 8px;
+    background: white !important;
+}
+
+/* Nested swiper navigation buttons */
+.nested-nav {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(0,0,0,0.45); color: white; border: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; cursor: pointer; z-index: 6;
+    backdrop-filter: blur(6px);
+}
+.nested-nav.prev { left: 12px; }
+.nested-nav.next { right: 12px; }
+.nested-nav:hover { background: rgba(0,0,0,0.6); }
+
+/* Make buttons smaller on mobile */
+@media (max-width: 480px) {
+    .nested-nav { width: 36px; height: 36px; font-size: 16px; }
+}
+
+/* Fullscreen Preview */
+.full-view {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 10000;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.full-view img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+}
+
+.close-full {
+    position: absolute;
+    top: 20px; right: 30px;
+    font-size: 3rem; color: white; cursor: pointer;
+}
+
+.download-btn {
+    margin-top: 20px;
+    color: white;
+    text-decoration: none;
+    background: var(--accent);
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.swiper-pagination-bullet {
+    background: white !important;
+}
+
+/* Ensure videos in browser fullscreen show full frame (no crop) */
+.media-box video:fullscreen,
+.media-box video:-webkit-full-screen,
+.media-box video:-moz-full-screen,
+.media-box video:-ms-fullscreen {
+    object-fit: contain !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    border-radius: 0 !important;
+    background: black;
+}
+
+/* Also handle the element that becomes fullscreen (some browsers put the parent into fullscreen) */
+.media-box:fullscreen,
+.media-box:-webkit-full-screen,
+.media-box:-moz-full-screen,
+.media-box:-ms-fullscreen {
+    border-radius: 0 !important;
+}
+
+/* Bottom-to-top gradient overlay inside media-box */
+.media-box::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 45%;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+    z-index: 2;
+    pointer-events: none;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.caption-overlay {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 18px;
+    z-index: 3;
+    color: white;
+    font-weight: 700;
+    text-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    pointer-events: none;
+}

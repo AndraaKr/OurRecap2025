@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2024 Wrapped: Anggi Edition</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Playfair+Display:ital,wght@0,900;1,900&family=Dancing+Script:wght@700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="overlay">
+    <h2 style="font-family: 'Caveat'; font-size: 3rem;">For Anggraini...</h2>
+    
+    <br>
+    <p style="margin-bottom: 30px; opacity: 0.9; font-weight: 600;">Pelan-pelan bacanya☺️</p>
+    
+    <p style="margin-bottom: 5px; opacity: 0.9; font-size: 14px;">
+        Turn on volume for better experience
+    </p>
+    
+    <button class="btn" onclick="startExperience()">Mulai 🎧</button>        
+</div>
+
+    <div id="music-control" onclick="toggleMusic()">🎵</div>
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.dropbox.com/scl/fi/5fr2urouiedcfa4o2znay/American-Authors-Best-Day-Of-My-Life-Lyrics-vJ9KFEJVISo.m4a?rlkey=ldjif03fqf9k6byy6j6vkxtcc&st=ug7cqwjd&raw=1" type="audio/mp4">
+    </audio>
+
+    <!-- Main Vertical Swiper -->
+    <div class="swiper mainSwiper">
+        <div class="swiper-wrapper">
+
+            <!-- Slide 1: Hero -->
+            <div class="swiper-slide s1" id="slide1">
+                <!-- Tambahkan class 'hero-wrapper' di sini -->
+                <div class="hero-wrapper" style="z-index: 2;">
+                    <h1 class="hero-title">
+                        <span class="reveal-text" style="transition-delay: 0.2s;">2025</span>
+                        <span class="reveal-text" style="transition-delay: 0.5s;">Our</span>
+                        <span class="reveal-text" style="transition-delay: 0.6s;">RECAP</span>
+                    </h1>
+                    <p class="hero-subtitle">Ala-ala Spotify</p>
+                </div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>        
+        <div class="swipe-up">SWIPE UP</div>
+    </div>
+            <!-- Slide 2: Stats Intro (cream background) -->
+            <div class="swiper-slide bg-krem" id="slide-stat-intro">
+                <div class="card">
+                    <h2 class="card-title">Kira-kira tahun ini bisa dibilang BAD or GOOD yaa??🤔</h2>
+                </div>
+                <p class="slide-note">Langsung ae...</p>
+                 <p class="slide-note">Aku mencatat, kamu melihat</p>
+            </div>
+
+            <!-- Slide 2a: Stat - Sad -->
+            <div class="swiper-slide s-stat bg-flower" id="slide-stat-sad">
+                <div class="card stats-card">
+                    <h2 class="card-title">Nangis</h2>
+                    <div class="stat-card single">
+                        <div class="stat-icon"><img class="stat-gif" src="assets/nangis.gif" alt="sad"></div>
+                        <div class="stat-body">
+                            <div class="stat-number" data-target="14">0</div>
+                            <div class="stat-label">Kali</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2b: Stat - Angry -->
+            <div class="swiper-slide s-stat bg-flower" id="slide-stat-angry">
+                <div class="card stats-card">
+                    <h2 class="card-title">Stress Momen</h2>
+                    <div class="stat-card single">
+                        <div class="stat-icon"><img class="stat-gif" src="assets/stress.gif" alt="angry"></div>
+                        <div class="stat-body">
+                            <div class="stat-number" data-target="999">0</div>
+                            <div class="stat-label">Kali</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2c: Stat - Happy -->
+            <div class="swiper-slide s-stat bg-flower" id="slide-stat-happy">
+                <div class="card stats-card">
+                    <h2 class="card-title">Bahagia Momen</h2>
+                    <div class="stat-card single">
+                        <div class="stat-icon"><img class="stat-gif" src="assets/ketakutan.gif" alt="happy"></div>
+                        <div class="stat-body">
+                            <div class="stat-number" data-target="4">0</div>
+                            <div class="stat-label">Kali</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Intro (cream background) -->
+            <div class="swiper-slide bg-krem" id="slide-stat-intro">
+                <div class="card">
+                    <h2 class="card-title">Dimulai dari Momen Bahagia dulu aja kali ya</h2>
+                </div>            
+            </div>
+
+            <!-- Slide 3: Roblox Moment (Nested Horizontal) -->
+            <div class="swiper-slide s-roblox bg-kain">
+                <div class="slide-content">
+                    <h2 class="category-title">Roblox Era 🎮</h2>
+                    <div class="swiper nestedSwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/mtsunda1.jpeg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Awal kali Main Roblox langsung Muncak</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/mtsunda2.jpeg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Dengan Ava Baconnya + Emot nangis😭</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/mtsunda3.jpeg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">GGWP!!! Langsung berhasil Summit MT Sunda</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/mtjawa3.jpeg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Coba ndaki Gunung Jawa yang Berhantu</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/mtjawa2.jpeg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Creppy ada makam masing" Player</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/mtjawa.jpeg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Meskipun Berhantu tetep Berhasil Summit YGY😜</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/everest2.jpeg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Karena PD sama skill ndaki, akhirnya nyoba gunung tertinggi di Dunia</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/everest3.jpeg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Berkabut Euyy🥶</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/everest1.jpeg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Feeling buruk mulai terasa di tangga keramat pertama</div></div></div>                                                    
+                            <div class="swiper-slide"><div class="media-box"><div class="video-wrapper"><video data-swiper-parallax="-100" src="assets/everest-video.mp4"></video><div class="play-overlay" onclick="togglePlayVideo(this)"><span>▶</span></div></div><div class="caption-overlay" data-swiper-parallax="-50">Dan yap, Si Peyek partnerku gagal Summit karena jatuh😔</div></div></div>                            
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/roblox-mtpapua.png" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Puncak Papua</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/roblox-mtsantai.png" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Gunung Santai</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/roblox-everest.png" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Everest Run</div></div></div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <button class="nested-nav prev" onclick="nestedPrev(this)">◀</button>
+                        <button class="nested-nav next" onclick="nestedNext(this)">▶</button>
+                    </div>
+                    <p class="caption">Muncak terus sampe bosen.</p>
+                </div>
+            </div>
+
+            <!-- Slide 3: Ice Skating (Nested Horizontal) -->
+            <div class="swiper-slide s-ice bg-kain">
+                <div class="slide-content">
+                    <h2 class="category-title">Ice Skating ⛸️</h2>
+                    <div class="swiper nestedSwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><div class="media-box"><video data-swiper-parallax="-100" src="assets/Iceskate-Video.mp4" controls></video><div class="caption-overlay" data-swiper-parallax="-50">Ice Skating Reel</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/iceskate.jpg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Pertama Kali Jatuh</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/iceskate2.jpg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Latihan Malam</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/iceskate3.jpg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Sunset Skate</div></div></div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <button class="nested-nav prev" onclick="nestedPrev(this)">◀</button>
+                        <button class="nested-nav next" onclick="nestedNext(this)">▶</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: K3Mart (Nested Horizontal) -->
+            <div class="swiper-slide s-k3mart bg-kain">
+                <div class="slide-content">
+                    <h2 class="category-title">K3Mart & Blocks 🧱</h2>
+                    <div class="swiper nestedSwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><div class="media-box"><video data-swiper-parallax="-100" src="assets/k3mart-video.mp4" controls></video><div class="caption-overlay" data-swiper-parallax="-50">K3Mart Video</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/k3mart1.jpg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Rakit Block 1</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/k3mart2.jpg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Rakit Block 2</div></div></div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <button class="nested-nav prev" onclick="nestedPrev(this)">◀</button>
+                        <button class="nested-nav next" onclick="nestedNext(this)">▶</button>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Slide 5: Cafe & Food -->
+             <div class="swiper-slide s-cafe bg-kain">
+                <div class="slide-content">
+                    <h2 class="category-title">Cafe Hopping ☕</h2>
+                    <div class="swiper nestedSwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/arekcoffee.jpg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Arek Coffee</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/ejji1.jpg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Ejji Moment</div></div></div>
+                            <div class="swiper-slide"><div class="media-box"><img data-swiper-parallax="-120" src="assets/flower.jpg" onclick="openFull(this.src)"><div class="caption-overlay" data-swiper-parallax="-60">Bunga & Kopi</div></div></div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <button class="nested-nav prev" onclick="nestedPrev(this)">◀</button>
+                        <button class="nested-nav next" onclick="nestedNext(this)">▶</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Study/Nuga Space -->
+            <div class="swiper-slide s-study bg-kain">
+                <div class="card">
+                    <h2 class="card-title">Productive Day 📖</h2>
+                    <div class="media-frame">
+                        <video src="assets/Nugaspace-Edit.mp4" controls style="width: 100%;"></video>
+                    </div>
+                    <p>Nugas tapi ujung-ujungnya curhat.</p>
+                </div>
+            </div>
+
+            <!-- (stats slide moved earlier) -->
+
+            <!-- Slide 7: The Letter -->
+            <div class="swiper-slide s5 bg-kain">
+                <div class="card">
+                    <h2 style="font-family: 'Caveat'; font-size: 3rem;">A Message...</h2>
+                    <p>Buka surat terakhir buat lo.</p>
+                    <button class="btn" onclick="openModal()">Buka Surat ✉️</button>
+                </div>
+            </div>
+
+             <!-- Slide 8: Closing -->
+            <div class="swiper-slide bg-kain">
+                <div class="card" style="border-color: var(--accent);">
+                    <h1 style="color: var(--accent); font-family: var(--font-maringue);">See You 2025!</h1>
+                    <p>Tahun depan pagarnya dikurangin dikit ya? Hahaha.</p>
+                    <hr style="margin: 20px 0; opacity: 0.2;">
+                    <p style="font-weight: bold;">Januari Janji Ketemu: ✅ ON</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Fullscreen Media Preview -->
+    <div id="fullView" class="full-view">
+        <span class="close-full" onclick="closeFull()">&times;</span>
+        <img id="imgFull" src="" alt="">
+        <a id="downloadBtn" href="" download class="download-btn">Download Image ⬇️</a>
+    </div>
+
+    <!-- Modal Surat -->
+    <div id="m" class="modal">
+        <div class="modal-paper">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 style="font-family: 'Caveat'; font-size: 2.5rem;">Hi Anggraini A.K.A Cimoy,</h2>
+            <br>
+            <p>Egilaa gak kerasa gak sih wes di ujung tahun 2025, </p>
+            <p>Aku bikin ini bener-bener buat apresiasi perjalanan kita dalam setahun ini. Dari Januari yang cuma bahas Mobile Legend, sampe akhirnya kita sering ketemuan main bareng, billiard, ice skating, sampe ngerakit Brick bareng.</p>
+            <p>Gue seneng banget bisa punya temen seasyik lo. Lo tuh orang yang asik diajak ngobrol, selalu bawa energi positif, dan yang paling penting, lo selalu dukung gue buat jadi versi terbaik diri gue.</p>
+            <p>Aku cuma mau kamu tau, gue tetep sahabat kecil lo yang siap sedia kalau lo butuh bantuan joki ML atau sekadar temen curhat.</p>
+            <p>Selamat tahun baru ya, Nggik. Jangan terlalu capek. Sampai ketemu di Januari!</p>
+            <p style="text-align: right; margin-top: 30px; font-weight: bold; font-family: 'Caveat'; font-size: 2rem;">— Sahabatmu</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- CountUp for animated counters -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.0.7/countUp.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
