@@ -24,7 +24,7 @@ body {
     height: 100%;
     
     /* Ganti background ke gambar */
-    background-image: url('assets/bg-hero.png'); 
+    background-image: url('assets/bg-hero.jpg'); 
     background-size: cover;
     background-position: center;
     
