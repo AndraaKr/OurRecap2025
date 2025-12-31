@@ -79,6 +79,8 @@ function closeFull() {
     document.getElementById('fullView').style.display = 'none';
 }
 
+
+const defaultMusic = "https://www.dropbox.com/scl/fi/5fr2urouiedcfa4o2znay/American-Authors-Best-Day-Of-My-Life-Lyrics-vJ9KFEJVISo.m4a?rlkey=ldjif03fqf9k6byy6j6vkxtcc&st=ug7cqwjd&raw=1";
 // Main Vertical Swiper
 const mainSwiper = new Swiper('.mainSwiper', {
     direction: 'vertical',
@@ -86,16 +88,36 @@ const mainSwiper = new Swiper('.mainSwiper', {
     mousewheel: true,
     on: {
         slideChangeTransitionStart: function () {
-            // pause any playing videos when switching main slides
             pauseAllVideos();
+
+            // AMBIL SLIDE YANG SEDANG AKTIF
+            const activeSlide = this.slides[this.activeIndex];
+            const newMusic = activeSlide.getAttribute('data-music');
+
+            // LOGIKA GANTI LAGU
+            if (newMusic) {
+                // Jika slide punya lagu khusus (seperti slide surat)
+                if (audio.src !== newMusic) {
+                    audio.src = newMusic;
+                    audio.load();
+                    if (!musicManuallyPaused) audio.play();
+                }
+            } else {
+                // Jika slide TIDAK punya lagu khusus, kembalikan ke lagu awal
+                if (audio.src !== defaultMusic) {
+                    audio.src = defaultMusic;
+                    audio.load();
+                    if (!musicManuallyPaused) audio.play();
+                }
+            }
+
             if (this.activeIndex === 0) {
                 document.getElementById('slide1').classList.add('start-anim');
             }
-            // trigger stats counters when a single stat slide becomes active
-                const activeSlide = this.slides[this.activeIndex];
-                if (activeSlide && activeSlide.classList.contains('s-stat')) {
-                    startStatsCounters(activeSlide);
-                }
+            
+            if (activeSlide && activeSlide.classList.contains('s-stat')) {
+                startStatsCounters(activeSlide);
+            }
         }
     }
 });
@@ -391,8 +413,8 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', () => {
     const loader = document.getElementById('loader-wrapper');
     
-    // Beri waktu 1.5 detik agar user bisa lihat animasi loader comic-nya sebentar
+    // Beri sedikit delay agar transisi mulus
     setTimeout(() => {
         loader.classList.add('loader-hidden');
-    }, 1500);
+    }, 2500); 
 });
