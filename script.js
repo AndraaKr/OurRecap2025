@@ -2,9 +2,16 @@ const audio = document.getElementById('bgMusic');
 const slide1 = document.getElementById('slide1');
 const musicControl = document.getElementById('music-control');
 const modal = document.getElementById('m');
+
+const happyGif = new Image();
+happyGif.src = 'assets/happy2.gif'; 
+const bgHero = new Image();
+bgHero.src = 'assets/bg-hero.jpg';
+
 let musicManuallyPaused = false;
 let pausedByVideo = false;
 let playingVideosCount = 0;
+
 
 function startExperience() {
     const overlay = document.getElementById('overlay');
@@ -378,4 +385,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+});
+
+// Hilangkan Loader saat halaman selesai dimuat
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader-wrapper');
+    
+    // Beri waktu 1.5 detik agar user bisa lihat animasi loader comic-nya sebentar
+    setTimeout(() => {
+        loader.classList.add('loader-hidden');
+    }, 1500);
 });

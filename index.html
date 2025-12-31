@@ -4,24 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2025 Recap: Plenger Edition</title>
+    <link rel="preload" as="image" href="assets/bg-hero.jpg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;600;800&family=Playfair+Display:ital,wght@0,900;1,900&family=Dancing+Script:wght@700&family=Caveat:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+        
+    <!-- Loader Screen Start -->
+    <div id="loader-wrapper">
+        <div class="comic-brutalist-loader">
+            <div class="loader-container">
+                <div class="comic-panel">
+                    <div class="speech-bubble">
+                        <span class="loading-text">LOADING</span>
+                        <div class="dots">
+                            <span class="dot">!</span>
+                            <span class="dot">?</span>
+                            <span class="dot">!</span>
+                        </div>
+                    </div>
+                    <div class="comic-character">
+                        <div class="character-head"></div>
+                        <div class="character-body"></div>
+                        <div class="character-eyes">
+                            <div class="eye left"></div>
+                            <div class="eye right"></div>
+                        </div>
+                        <div class="character-mouth"></div>
+                    </div>
+                    <div class="starburst">
+                        <div class="star-spike"></div>
+                        <div class="star-spike"></div>
+                        <div class="star-spike"></div>
+                        <div class="star-spike"></div>
+                        <div class="star-spike"></div>
+                        <div class="star-spike"></div>
+                        <div class="star-spike"></div>
+                        <div class="star-spike"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader Screen End -->
+    
     <div id="overlay">
-    <h2 style="font-family: 'Caveat'; font-size: 3rem;">For Anggraini...</h2>
-    
-    <br>
-    <p style="margin-bottom: 30px; opacity: 0.9; font-weight: 600;">Bacanya Pelan-pelan yaa, biar dapat feel nya☺️</p>
-    
-    <p style="margin-bottom: 5px; opacity: 0.9; font-size: 14px;">
-        Turn on volume for better experience
-    </p>
-    
-    <button class="btn" onclick="startExperience()">Mulai 🎧</button>        
-</div>
+        <h2 style="font-family: 'Caveat'; font-size: 3rem;">For Anggraini...</h2>
+        
+        <br>
+        <p style="margin-bottom: 30px; opacity: 0.9; font-weight: 600;">Bacanya Pelan-pelan yaa, biar dapat feel nya☺️</p>
+        
+        <p style="margin-bottom: 5px; opacity: 0.9; font-size: 14px;">
+            Turn on volume for better experience
+        </p>
+        
+        <button class="btn" onclick="startExperience()">Mulai 🎧</button>        
+    </div>
 
     <div id="music-control" onclick="toggleMusic()">🎵</div>
 
