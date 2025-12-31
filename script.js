@@ -49,11 +49,29 @@ function toggleMusic() {
 }
 
 function openModal() {
-    modal.style.display = 'block';
+    const modal = document.getElementById('m');
+    modal.style.display = 'flex';
+    
+    // Pastikan status bersih
+    modal.classList.remove('open');
+    
+    // Trigger animasi buka
+    setTimeout(() => {
+        modal.classList.add('open');
+    }, 50);
 }
 
 function closeModal() {
-    modal.style.display = 'none';
+    const modal = document.getElementById('m');
+    modal.classList.remove('open');
+    
+    // Tunggu animasi paperInAndHide (1s) + flap menutup (0.5s)
+    // Kita beri total 1.5 detik agar sempurna
+    setTimeout(() => {
+        if (!modal.classList.contains('open')) {
+            modal.style.display = 'none';
+        }
+    }, 1400); 
 }
 
 // Close modal if user clicks outside of it
@@ -89,9 +107,16 @@ const mainSwiper = new Swiper('.mainSwiper', {
     on: {
         slideChangeTransitionStart: function () {
             pauseAllVideos();
-
-            // AMBIL SLIDE YANG SEDANG AKTIF
-            const activeSlide = this.slides[this.activeIndex];
+        const activeSlide = this.slides[this.activeIndex];
+        
+        // --- TAMBAHAN UNTUK RESET ANIMASI SLIDE 1 ---
+        if (this.activeIndex === 0) {
+            activeSlide.classList.add('start-anim');
+        } else {
+            // Hapus class slide 1 jika bukan di slide 1 (biar bisa replay animasinya)
+            document.getElementById('slide1').classList.remove('start-anim');
+        }
+            // AMBIL SLIDE YANG SEDANG AKTIF            
             const newMusic = activeSlide.getAttribute('data-music');
 
             // LOGIKA GANTI LAGU
@@ -418,3 +443,82 @@ window.addEventListener('load', () => {
         loader.classList.add('loader-hidden');
     }, 2500); 
 });
+
+// --- LOGIKA FIREWORKS (SLIDE 8) ---
+const canvas = document.getElementById('fireworks');
+const ctx = canvas.getContext('2d');
+
+let particles = [];
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+class Particle {
+    constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.radius = Math.random() * 2 + 1;
+        this.velocity = {
+            x: (Math.random() - 0.5) * 8,
+            y: (Math.random() - 0.5) * 8
+        };
+        this.alpha = 1;
+        this.friction = 0.95;
+    }
+
+    draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.restore();
+    }
+
+    update() {
+        this.velocity.x *= this.friction;
+        this.velocity.y *= this.friction;
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+        this.alpha -= 0.01;
+    }
+}
+
+function createFirework() {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * (canvas.height * 0.5);
+    const color = `hsl(${Math.random() * 360}, 50%, 50%)`;
+    
+    for (let i = 0; i < 30; i++) {
+        particles.push(new Particle(x, y, color));
+    }
+}
+
+function animateFireworks() {
+    // Hanya jalan jika slide terakhir aktif (opsional untuk hemat baterai)
+    if (mainSwiper.activeIndex === mainSwiper.slides.length - 1) {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        if (Math.random() < 0.05) createFirework();
+
+        particles.forEach((particle, index) => {
+            if (particle.alpha > 0) {
+                particle.update();
+                particle.draw();
+            } else {
+                particles.splice(index, 1);
+            }
+        });
+    }
+    requestAnimationFrame(animateFireworks);
+}
+
+// Jalankan animasi
+animateFireworks();

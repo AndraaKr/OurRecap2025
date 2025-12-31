@@ -522,20 +522,160 @@ body {
     border-radius: 12px;
 }
 
-/* --- Modal --- */
-.modal {
-    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9); z-index: 2000; padding: 20px;
+/* Slide Teaser Style */
+.letter-teaser {
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
-.modal-paper {
-    background: #fdfdfd; color: #333; padding: 30px; border-radius: 15px;
-    height: 100%; overflow-y: auto; position: relative;
-    background-image: linear-gradient(#e5e5e5 1px, transparent 1px);
-    background-size: 100% 2rem; line-height: 2rem;
+.letter-teaser:hover { transform: scale(1.05); }
+.teaser-icon {
+    font-size: 5rem;
+    filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+    animation: float 3s ease-in-out infinite;
 }
-.close-modal { position: absolute; top: 10px; right: 20px; font-size: 2.5rem; color: #999; cursor: pointer; }
 
-/* ... (kode root dan body sama seperti sebelumnya) ... */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* Modal Layout */
+.modal {
+    display: none;
+    position: fixed;
+    /* inset: 0; ini standar, tapi kita pastikan lagi */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Gunakan 100% untuk Android agar stabil */
+    z-index: 10000;
+    display: none; /* diatur JS */
+    justify-content: center;
+    align-items: center; /* Kunci Center di Android */
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.modal-overlay-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 1;
+}
+
+.envelope-wrapper {
+    position: relative;
+    width: 90%;
+    max-width: 380px;
+    height: 240px;
+    z-index: 2;
+    transition: transform 0.5s ease;
+}
+
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #d4ba95;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+/* Bagian-bagian Amplop */
+.flap {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #c5a982;
+    clip-path: polygon(0 0, 50% 60%, 100% 0);
+    transition: transform 0.5s ease, z-index 0.2s;
+    transform-origin: top;
+    z-index: 5; /* Default di atas kertas */
+}
+
+
+.pocket {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #d4ba95;
+    clip-path: polygon(0 40%, 50% 100%, 100% 40%, 100% 100%, 0 100%);
+    z-index: 4;
+    border-radius: 0 0 10px 10px;
+}
+
+/* Kertas Surat */
+.modal-paper {
+    position: absolute;
+    top: 10px;
+    left: 5%;
+    width: 90%;
+    height: 180px;
+    background: #fff;
+    padding: 25px;
+    z-index: 3; /* Di dalam pocket */
+    overflow-y: auto;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* --- LOGIKA ANIMASI BUKA --- */
+.modal.open .flap {
+    transform: rotateX(180deg);
+    transition-delay: 0s;
+    z-index: 2; /* Biar gak ngalangin kertas pas naik */
+}
+
+.modal.open .modal-paper {
+    animation: paperOutAndCover 1.2s forwards;
+    animation-delay: 0.5s; /* Tunggu flap buka dulu */
+}
+
+@keyframes paperOutAndCover {
+    0% { transform: translateY(0); z-index: 3; }
+    45% { transform: translateY(-120%); z-index: 3; }
+    50% { transform: translateY(-120%); z-index: 10; } /* Ganti Z-Index di atas layar */
+    100% { 
+        transform: translateY(-130px) scale(1.1); 
+        z-index: 10; 
+        height: 480px; /* Surat memanjang menutupi amplop */
+        width: 100%;
+        left: 0;
+    }
+}
+
+/* --- LOGIKA ANIMASI TUTUP --- */
+.modal:not(.open) .modal-paper {
+    /* Animasi ini hanya jalan kalau modal tadinya punya class open lalu dihapus */
+    animation: paperInAndHide 1s forwards;
+}
+
+@keyframes paperInAndHide {
+    0% { transform: translateY(20px) scale(1.1); z-index: 10; height: 480px; width: 100%; left: 0;}
+    45% { transform: translateY(-120%); z-index: 10; }
+    50% { transform: translateY(-120%); z-index: 3; }
+    100% { transform: translateY(0); z-index: 3; height: 180px; width: 90%; left: 5%;}
+}
+
+.modal:not(.open) .flap {
+    transition-delay: 0.8s; /* Tunggu kertas masuk baru flap tutup */
+    transform: rotateX(0deg);
+}
+
+/* Styling konten kertas */
+.paper-content {
+    background-image: linear-gradient(#f0f0f0 1px, transparent 1px);
+    background-size: 100% 1.8rem;
+    line-height: 1.8rem;
+    color: #444;
+}
+
+.close-modal {
+    float: right;
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;
+    margin-top: -10px;
+}
 
 /* Warna Background Tambahan */
 .s-roblox { background: radial-gradient(circle, #213555, #0c0c0c); }
@@ -882,4 +1022,71 @@ body {
     font-weight: 700;
     text-shadow: 0 6px 18px rgba(0,0,0,0.6);
     pointer-events: none;
+}
+
+/* Styling khusus untuk fireworks di slide 8 */
+#closing-slide {
+    position: relative;
+    overflow: hidden;
+}
+
+#fireworks {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Agar tidak mengganggu swipe */
+    z-index: 1;
+}
+
+#closing-slide .card {
+    z-index: 10; /* Pastikan teks di atas kembang api */
+    position: relative;
+    background: rgba(12, 12, 12, 0.7); /* Beri sedikit opasitas agar kembang api terlihat di belakang */
+    backdrop-filter: blur(5px);
+}
+
+/* --- ANIMASI ENTRANCE TIAP SLIDE --- */
+
+/* 1. Kondisi Awal: Semua konten di dalam slide kita buat transparan & turun sedikit */
+.swiper-slide .card, 
+.swiper-slide .category-title, 
+.swiper-slide .caption, 
+.swiper-slide .nestedSwiper,
+.swiper-slide .letter-teaser {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(10px);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efek membal (back out) */
+}
+
+/* 2. Kondisi Aktif: Ketika slide muncul di layar */
+.swiper-slide-active .card, 
+.swiper-slide-active .category-title, 
+.swiper-slide-active .caption, 
+.swiper-slide-active .nestedSwiper,
+.swiper-slide-active .letter-teaser {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+/* 3. Staggered Delay: Agar elemen muncul bergantian (tidak barengan) */
+.swiper-slide-active .category-title {
+    transition-delay: 0.2s;
+}
+
+.swiper-slide-active .nestedSwiper, 
+.swiper-slide-active .card {
+    transition-delay: 0.4s;
+}
+
+.swiper-slide-active .caption {
+    transition-delay: 0.6s;
+}
+
+/* Khusus slide 1, kita tetap pakai logic reveal-text yang sudah ada agar tidak bentrok */
+.s1.swiper-slide-active .reveal-text {
+    /* Sudah dihandle class .start-anim di JS mu */
 }
